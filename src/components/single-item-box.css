@@ -1,0 +1,41 @@
+.single-item-box {
+  position: relative;
+  color: black;
+}
+
+.single-item-box-info {
+  padding: 10px;
+  font-family: "Odibee Sans", cursive;
+}
+.single-item-box-img {
+  padding: 10px;
+}
+
+.single-item-box-title {
+  text-transform: uppercase;
+  font-size: 1.1rem;
+  margin-bottom: 8px;
+}
+
+/*  */
+
+.single-item-box__price_rating,
+.rating-wrap {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.single-item-box-price {
+  display: inline-block;
+  font-size: 1.2rem;
+  padding: 8px;
+  background: rgba(0, 255, 0, 0.363);
+  border-radius: 4px;
+}
+
+/*  */
+
+.svg-star {
+  stroke: black;
+}

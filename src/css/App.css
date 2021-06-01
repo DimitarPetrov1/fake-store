@@ -1,0 +1,153 @@
+.App {
+  position: relative;
+  height: 100vh;
+  width: 100%;
+}
+.loading {
+  visibility: hidden;
+}
+.loader {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: conic-gradient(yellow, lime, blue, violet, red);
+  animation: rotateLoader 0.4s linear infinite;
+  z-index: 900;
+}
+
+@keyframes rotateLoader {
+  0% {
+    transform: translate(-50%, -50%) rotate(0);
+  }
+  100% {
+    transform: translate(-50%, -50%) rotate(360deg);
+  }
+}
+
+header {
+  background: rgb(195, 195, 195);
+}
+
+nav {
+  font-family: "Odibee Sans", cursive;
+  font-size: 1.4rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: relative;
+  padding: 10px 60px;
+  text-transform: capitalize;
+}
+
+nav ul {
+  display: flex;
+}
+
+nav ul a,
+.nav-categories-label {
+  margin-right: 10px;
+}
+
+nav ul a:last-child {
+  margin-right: 0;
+}
+
+nav a,
+.nav-categories-label {
+  color: rgb(0, 0, 0);
+}
+
+.nav-categories-label:hover {
+  color: rgb(138, 0, 218);
+  transition: color 0.2s linear;
+}
+nav li,
+nav a {
+  user-select: none;
+}
+nav li {
+  padding-bottom: 6px;
+  margin-bottom: 6px;
+  border-bottom: 1px solid rgb(146, 146, 146);
+}
+.nav-categories-label {
+  cursor: pointer;
+  user-select: none;
+}
+.nav-categories-wrap {
+  position: absolute;
+  visibility: hidden;
+  height: 0;
+  opacity: 0;
+}
+.nav-categories-wrap-open {
+  position: absolute;
+  bottom: -300px;
+  left: 0;
+  visibility: visible;
+  height: 300px;
+  width: 100%;
+  background: rgba(195, 195, 195, 1);
+  background: linear-gradient(
+    180deg,
+    rgba(195, 195, 195, 1) 0%,
+    rgba(238, 238, 238, 1) 50%,
+    rgba(255, 255, 255, 0) 100%
+  );
+  padding: 10px;
+  transition: opacity 0.2s linear;
+  z-index: 900;
+  opacity: 1;
+}
+
+.main-page {
+  padding: 20px 60px;
+}
+
+.page-items-container {
+  display: flex;
+  justify-content: flex-start;
+  align-content: center;
+  flex-wrap: wrap;
+}
+
+/* Links in page */
+.single-item-link {
+  display: flex;
+  position: relative;
+  flex-direction: column;
+  /* add a specific number */
+  width: 100%;
+  margin: 10px;
+  border-radius: 6px;
+
+  transition: box-shadow 0.35s ease-out;
+}
+
+.single-item-link:hover {
+  box-shadow: 0 0 8px 0 rgba(0, 0, 0, 0.5);
+}
+
+.single-item-link img {
+  width: 100%;
+  object-fit: contain;
+}
+.btn-buy_now {
+  position: absolute;
+  bottom: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  opacity: 0;
+  pointer-events: none;
+  transition: bottom 0.35s ease-out, opacity 0.35s ease-out;
+}
+
+.single-item-link:hover .btn-buy_now {
+  bottom: 20%;
+  opacity: 1;
+  pointer-events: all;
+}
