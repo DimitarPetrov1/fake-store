@@ -10,8 +10,10 @@ import BuyButton from "./components/micro/BuyButton";
 function App() {
   const [items, setItems] = useState([]);
   const [currentCategoryName, setCurrentCategoryName] = useState("");
-  const [currentCategoryItemsDetails, setCurrentCategoryItemsDetails] =
-    useState([]);
+  const [
+    currentCategoryItemsDetails,
+    setCurrentCategoryItemsDetails
+  ] = useState([]);
   const [currentItem, setCurrentItem] = useState([]);
   const [loading, isLoading] = useState(false);
   const [openCategoryMenu, setOpenCategoryMenu] = useState(false);
@@ -19,8 +21,14 @@ function App() {
     "electronics",
     "jewelery",
     "men's clothing",
-    "women's clothing",
+    "women's clothing"
   ];
+  const addToCart = (e) => {
+    const cart = document.querySelector(".nav-cart");
+    const badge = document.createElement("div");
+    badge.classList.add("badge");
+    cart.appendChild(badge);
+  };
   useEffect(() => {
     const fetchHomepage = async () => {
       await fetch("https://fakestoreapi.com/products")
@@ -80,9 +88,10 @@ function App() {
       <Router>
         <header>
           <nav>
-            <img id="main-logo" src={Logo} alt="LOGO" />
+            <Link to="/">
+              <img id="main-logo" src={Logo} alt="LOGO" />
+            </Link>
             <ul>
-              <Link to="/">home</Link>
               <div
                 className="nav-categories-label"
                 onClick={handleOpenCategoryMenu}
@@ -149,7 +158,7 @@ function App() {
                           itemDescription={item.description}
                         />
                       </Link>
-                      <BuyButton />
+                      <BuyButton addToCartFunction={addToCart} />
                     </div>
                   );
                 })}
@@ -188,7 +197,7 @@ function App() {
                           itemImage={item.image}
                         />
                       </Link>
-                      <BuyButton />
+                      <BuyButton addToCartFunction={addToCart} />
                     </div>
                   );
                 })}

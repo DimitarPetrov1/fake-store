@@ -151,3 +151,17 @@ nav li {
   opacity: 1;
   pointer-events: all;
 }
+
+/*  */
+.nav-cart {
+  position: relative;
+}
+.badge {
+  width: 20px;
+  height: 20px;
+  background: red;
+  border-radius: 50%;
+  position: absolute;
+  right: -20px;
+  top: 0;
+}
