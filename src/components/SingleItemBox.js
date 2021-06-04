@@ -2,7 +2,6 @@ import React from "react";
 import "../css/App.css";
 import "./single-item-box.css";
 import Star from "./micro/Star";
-import reactDom from "react-dom";
 
 function SingleItem({ itemTitle, itemPrice, itemImage }) {
   // This is a dummy rating generator based on the PRICE of the item (for consistency)

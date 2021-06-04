@@ -6,28 +6,33 @@ import SingleItemBox from "./components/SingleItemBox";
 import Logo from "./img/logo.png";
 import ShoppingCart from "./components/micro/ShoppingCart";
 import BuyButton from "./components/micro/BuyButton";
+import CartPage from "./components/CartPage";
 
 function App() {
   const [items, setItems] = useState([]);
   const [currentCategoryName, setCurrentCategoryName] = useState("");
-  const [
-    currentCategoryItemsDetails,
-    setCurrentCategoryItemsDetails
-  ] = useState([]);
+  const [currentCategoryItemsDetails, setCurrentCategoryItemsDetails] =
+    useState([]);
   const [currentItem, setCurrentItem] = useState([]);
   const [loading, isLoading] = useState(false);
   const [openCategoryMenu, setOpenCategoryMenu] = useState(false);
+  let itemsInCart = [];
   const categories = [
     "electronics",
     "jewelery",
     "men's clothing",
-    "women's clothing"
+    "women's clothing",
   ];
   const addToCart = (e) => {
     const cart = document.querySelector(".nav-cart");
     const badge = document.createElement("div");
     badge.classList.add("badge");
     cart.appendChild(badge);
+    // get the id of the item
+    itemsInCart.push(
+      e.target.parentElement.querySelector("a").getAttribute("href")
+    );
+    console.log(itemsInCart);
   };
   useEffect(() => {
     const fetchHomepage = async () => {
@@ -119,13 +124,16 @@ function App() {
                   );
                 })}
               </div>
-              <Link className="nav-cart">
+              <Link to="/cart" className="nav-cart">
                 <ShoppingCart />
               </Link>
             </ul>
           </nav>
         </header>
         <Switch>
+          <Route path="/cart">
+            <CartPage cartItems={itemsInCart} />
+          </Route>
           <Route path="/category">
             <div className="main-page">
               <Route path="/product">
