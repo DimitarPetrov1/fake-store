@@ -16,7 +16,7 @@ function App() {
   const [currentItem, setCurrentItem] = useState([]);
   const [loading, isLoading] = useState(false);
   const [openCategoryMenu, setOpenCategoryMenu] = useState(false);
-  const itemsInCart = [];
+  const [itemsInCart, setItemsInCart] = useState([]);
   const categories = [
     "electronics",
     "jewelery",
@@ -24,11 +24,8 @@ function App() {
     "women's clothing",
   ];
   const addToCart = (e) => {
-    const cart = document.querySelector(".nav-cart");
-    const badge = document.createElement("div");
-    badge.classList.add("badge");
-    cart.appendChild(badge);
     // get the details of the item
+
     itemsInCart.push({
       id: Number(
         e.target.parentElement
@@ -47,8 +44,9 @@ function App() {
         .querySelector("a .single-item-box-img")
         .getAttribute("src"),
     });
-    badge.textContent = itemsInCart.length + 1;
-    localStorage.setItem("ORDER_ITEMS", JSON.stringify(itemsInCart));
+
+    console.log(itemsInCart);
+    // localStorage.setItem("ORDER_ITEMS", JSON.stringify(itemsInCart));
   };
   useEffect(() => {
     const fetchHomepage = async () => {
@@ -93,14 +91,12 @@ function App() {
     fetchSingleItem();
     isLoading(true);
   }, []);
-  // Local Storage on startup
-  useEffect(() => {
-    localStorage.length === 0
-      ? console.log("no items in local storage")
-      : itemsInCart.push(localStorage.getItem("ORDER_ITEMS"));
-
-    console.log(JSON.parse(localStorage.getItem("ORDER_ITEMS")));
-  }, []);
+  // Local Storage function
+  // useEffect(() => {
+  //   localStorage.length === 0
+  //     ? console.log("no items in local storage")
+  //     : itemsInCart.push(JSON.parse(localStorage.getItem("ORDER_ITEMS")));
+  // }, [itemsInCart]);
 
   const handleOpenCategoryMenu = () => {
     setOpenCategoryMenu(!openCategoryMenu);
@@ -150,6 +146,9 @@ function App() {
               </div>
               <Link to="/cart" className="nav-cart">
                 <ShoppingCart />
+                <div className={itemsInCart > 0 ? "badge" : ""}>
+                  {itemsInCart > 0 ? itemsInCart.length + 1 : ""}
+                </div>
               </Link>
             </ul>
           </nav>

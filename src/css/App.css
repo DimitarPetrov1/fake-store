@@ -121,7 +121,7 @@ nav li {
   position: relative;
   flex-direction: column;
   /* add a specific number */
-  width: 100%;
+  width: 40%;
   margin: 10px;
   border-radius: 6px;
 
