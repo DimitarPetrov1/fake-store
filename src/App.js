@@ -7,6 +7,7 @@ import Logo from "./img/logo.png";
 import ShoppingCart from "./components/micro/ShoppingCart";
 import BuyButton from "./components/micro/BuyButton";
 import CartPage from "./components/CartPage";
+import Modal from "./components/micro/Modal";
 
 function App() {
   const [items, setItems] = useState([]);
@@ -16,6 +17,7 @@ function App() {
   const [currentItem, setCurrentItem] = useState([]);
   const [loading, isLoading] = useState(false);
   const [openCategoryMenu, setOpenCategoryMenu] = useState(false);
+  const [openModal, setOpenModal] = useState(false);
   const [itemsInCart, setItemsInCart] = useState([]);
   const categories = [
     "electronics",
@@ -25,7 +27,6 @@ function App() {
   ];
   const addToCart = (e) => {
     // get the details of the item
-
     itemsInCart.push({
       id: Number(
         e.target.parentElement
@@ -44,8 +45,10 @@ function App() {
         .querySelector("a .single-item-box-img")
         .getAttribute("src"),
     });
-
-    console.log(itemsInCart);
+    setOpenModal(true);
+    setTimeout(() => {
+      setOpenModal(false);
+    }, 2000);
     // localStorage.setItem("ORDER_ITEMS", JSON.stringify(itemsInCart));
   };
   useEffect(() => {
@@ -110,6 +113,7 @@ function App() {
   return (
     <div className="App" onClick={handleCloseMenu}>
       <div className={loading ? "loader" : "loading"}></div>
+      <Modal openModal={openModal} />
       <Router>
         <header>
           <nav>
@@ -155,7 +159,11 @@ function App() {
         </header>
         <Switch>
           <Route path="/cart">
-            <CartPage cartItems={itemsInCart} />
+            <div className="main-page">
+              <div className="page-items-container">
+                <CartPage cartItems={itemsInCart} />
+              </div>
+            </div>
           </Route>
           <Route path="/category">
             <div className="main-page">

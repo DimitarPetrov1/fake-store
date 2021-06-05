@@ -1,5 +1,4 @@
 import React from "react";
-import "../single-item-box.css";
 
 function Star({ isStarred }) {
   return (

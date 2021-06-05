@@ -24,7 +24,7 @@ img {
   object-fit: contain;
   user-select: none;
 }
-
+/* btn */
 .btn {
   padding: 4px 8px;
   display: flex;
@@ -41,4 +41,25 @@ img {
 }
 .btn-buy_now:active {
   background: rgb(155, 219, 59);
+}
+/* modal */
+.modal {
+  visibility: hidden;
+  height: 0;
+  width: 0;
+}
+.modal-open {
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  display: block;
+  background: rgba(255, 255, 255, 0.9);
+  box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.5);
+  visibility: visible;
+  height: 100px;
+  width: 300px;
+  transform: translate(-50%, -50%);
+  border-radius: 8px;
+  z-index: 999;
+  transition: width 0.3s ease-in-out;
 }

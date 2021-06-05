@@ -1,6 +1,6 @@
 import React from "react";
 import "../css/App.css";
-import "./single-item-box.css";
+import "../css/single-item-box.css";
 import Star from "./micro/Star";
 
 function SingleItem({ itemTitle, itemPrice, itemImage }) {
@@ -15,7 +15,6 @@ function SingleItem({ itemTitle, itemPrice, itemImage }) {
         <h2 className="single-item-box-title">{itemTitle}</h2>
         <div className="single-item-box__price_rating">
           <p className="single-item-box-price">${itemPrice}</p>
-
           <div className="rating-wrap">
             {rating === 0 ? (
               "Not rated yet"

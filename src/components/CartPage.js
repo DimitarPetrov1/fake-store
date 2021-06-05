@@ -1,4 +1,5 @@
 import React from "react";
+import "../css/cart.css";
 
 function CartPage({ cartItems }) {
   return (
