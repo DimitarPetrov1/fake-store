@@ -16,7 +16,7 @@ function App() {
   const [currentItem, setCurrentItem] = useState([]);
   const [loading, isLoading] = useState(false);
   const [openCategoryMenu, setOpenCategoryMenu] = useState(false);
-  let itemsInCart = [];
+  const itemsInCart = [];
   const categories = [
     "electronics",
     "jewelery",
@@ -28,11 +28,27 @@ function App() {
     const badge = document.createElement("div");
     badge.classList.add("badge");
     cart.appendChild(badge);
-    // get the id of the item
-    itemsInCart.push(
-      e.target.parentElement.querySelector("a").getAttribute("href")
-    );
-    console.log(itemsInCart);
+    // get the details of the item
+    itemsInCart.push({
+      id: Number(
+        e.target.parentElement
+          .querySelector("a")
+          .getAttribute("href")
+          .replace("/product/", "")
+      ),
+      title: e.target.parentElement.querySelector("a .single-item-box-title")
+        .textContent,
+      price: Number(
+        e.target.parentElement
+          .querySelector("a .single-item-box-price")
+          .textContent.replace("$", "")
+      ),
+      image: e.target.parentElement
+        .querySelector("a .single-item-box-img")
+        .getAttribute("src"),
+    });
+    badge.textContent = itemsInCart.length + 1;
+    localStorage.setItem("ORDER_ITEMS", JSON.stringify(itemsInCart));
   };
   useEffect(() => {
     const fetchHomepage = async () => {
@@ -65,7 +81,6 @@ function App() {
   }, [currentCategoryName]);
   useEffect(() => {
     let ID_PATH = window.location.pathname.replace("product/", "");
-
     const fetchSingleItem = async () => {
       await fetch(`https://fakestoreapi.com/products${ID_PATH}`)
         .then((res) => res.json())
@@ -78,6 +93,15 @@ function App() {
     fetchSingleItem();
     isLoading(true);
   }, []);
+  // Local Storage on startup
+  useEffect(() => {
+    localStorage.length === 0
+      ? console.log("no items in local storage")
+      : itemsInCart.push(localStorage.getItem("ORDER_ITEMS"));
+
+    console.log(JSON.parse(localStorage.getItem("ORDER_ITEMS")));
+  }, []);
+
   const handleOpenCategoryMenu = () => {
     setOpenCategoryMenu(!openCategoryMenu);
   };
@@ -136,41 +160,43 @@ function App() {
           </Route>
           <Route path="/category">
             <div className="main-page">
-              <Route path="/product">
-                <Item
-                  itemTitle={currentItem.title}
-                  itemCategory={currentItem.category}
-                  itemPrice={currentItem.price}
-                  itemProductCode={currentItem.id}
-                  itemImage={currentItem.image}
-                  itemDescription={currentItem.description}
-                />
-              </Route>
-              <Route path="/">
-                {/* <p>{catName}</p> */}
-                {currentCategoryItemsDetails.map((item) => {
-                  return (
-                    <div className="single-item-link">
-                      <Link
-                        to={`/product/${item.id}`}
-                        key={item.id}
-                        className="single-item"
-                        onClick={() => {
-                          setCurrentItem(item);
-                        }}
-                      >
-                        <SingleItemBox
-                          itemTitle={item.title}
-                          itemPrice={item.price}
-                          itemImage={item.image}
-                          itemDescription={item.description}
-                        />
-                      </Link>
-                      <BuyButton addToCartFunction={addToCart} />
-                    </div>
-                  );
-                })}
-              </Route>
+              <div className="page-items-container">
+                <Route path="/product">
+                  <Item
+                    itemTitle={currentItem.title}
+                    itemCategory={currentItem.category}
+                    itemPrice={currentItem.price}
+                    itemProductCode={currentItem.id}
+                    itemImage={currentItem.image}
+                    itemDescription={currentItem.description}
+                  />
+                </Route>
+                <Route path="/">
+                  {/* <p>{catName}</p> */}
+                  {currentCategoryItemsDetails.map((item) => {
+                    return (
+                      <div className="single-item-link">
+                        <Link
+                          to={`/product/${item.id}`}
+                          key={item.id}
+                          className="single-item"
+                          onClick={() => {
+                            setCurrentItem(item);
+                          }}
+                        >
+                          <SingleItemBox
+                            itemTitle={item.title}
+                            itemPrice={item.price}
+                            itemImage={item.image}
+                            itemDescription={item.description}
+                          />
+                        </Link>
+                        <BuyButton addToCartFunction={addToCart} />
+                      </div>
+                    );
+                  })}
+                </Route>
+              </div>
             </div>
           </Route>
           <Route path="/product">
